@@ -8,4 +8,4 @@
   This is an internal function and it should not be used directly.
 }
 \author{D.Lucy and R.G.Aykroyd}
-\keyword{misc}
+\keyword{internal}

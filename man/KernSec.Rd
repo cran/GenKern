@@ -6,7 +6,7 @@
 
 \description{Computes univariate kernel density estimate using Gaussian kernels which can also use non-equally spaced ordinates and adaptive bandwidths}
 
-\usage{KernSec(x, gridsize=100, xbandwidth, range.x, na.rm=FALSE)}
+\usage{KernSec(x, xgridsize=100, xbandwidth, range.x, na.rm=FALSE)}
 
 \arguments{
 \item{x}{vector of \code{x} values}
@@ -21,12 +21,12 @@
 \item{yden}{vector of density estimates corresponding to each \code{x} ordinate}
 }
 
-\author{David Lucy <\email{d.j.lucy@bradford.ac.uk}> 
+\author{David Lucy <\email{dlucy@maths.ed.ac.uk}> 
 \cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \references{Robertson, I. Lucy, D. Baxter, L. Pollard, A.M. Aykroyd, R.G. Carter, A.H.C. Switsur, V.R. and Waterhouse, J.S.(1999) A kernel based Bayesian approach to climatic reconstruction. \emph{Holocene} \bold{9}(4): 495-500}
 
-\note{\note{Slow code suitable for visualisation and display of p.d.f where highly generalised k.p.d.fs are needed - \code{\link[KernSmooth]{bkde}} is faster when uniformly grided, single bandwidth, k.p.d.fs are required, although in the single dimensional case you won't notice the difference.
+\note{Slow code suitable for visualisation and display of p.d.f where highly generalised k.p.d.fs are needed - \code{\link[KernSmooth]{bkde}} is faster when uniformly grided, single bandwidth, k.p.d.fs are required, although in the single dimensional case you won't notice the difference.
 
 This function doesn't use bins as such, it calculates the density at a set of points. These points can be thought of as 'bin centres' but in reality they're not.
 
@@ -40,6 +40,7 @@ The number of ordinates defaults to the length of \code{range.x} if \code{range.
 
 Finally, the various modes of sending parameters can be mixed, ie: the extremes of the range can be sent to define the range for \code{x}, but a multi-element vector could be sent to define the ordinates in the \code{y} dimension, or, a vector could be sent to describe the bandwidth for each case in \code{x}.
 }
+
 
 \seealso{\code{\link{KernSur}} \code{\link{per}}  \code{\link[base]{density}} \code{\link[base]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
 
@@ -57,3 +58,4 @@ plot(z$xvals, z$yden, type="l") 	# should plot a wriggly line
 }
 
 \keyword{distribution}
+\keyword{smooth}

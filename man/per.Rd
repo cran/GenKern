@@ -6,20 +6,21 @@
 
 \description{Calculates the value for the ith point in a binned distribution}
 
-\usage{per(den, vals, point, na.rm=FALSE)}
+\usage{per(den, vals, point, na.rm=FALSE, neg.rm=FALSE)}
 
 \arguments{
 \item{den}{vector of frequency or density values}
 \item{vals}{vector of values corresponding to the centres of the bins in \code{den}, or the bin break points}
 \item{point}{percentage point of the distribution ie: 0.50 is median}
 \item{na.rm}{behaviour for NA's in the vector of density values: \code{FALSE} (default) per() will fail with warning if NA's are detected, \code{TRUE} per() will assume that these values are really zeros}
+\item{neg.rm}{per() will also fail if any member of the density vector is negative (which can happen occasionally from density functions based on FFT), set this to \code{TRUE} to treat these values as zeros}
 }
 
 \value{returns a value:
 \item{x}{value of \code{vals} corresponding to the \code{point} position}
 }
 
-\author{David Lucy <\email{d.j.lucy@bradford.ac.uk}>
+\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>
 \cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \note{Not restricted to uniform bin widths but due to linear interpolation gets less accurate as bin widths deviate from uniformity. The vectors must be in 
@@ -49,4 +50,4 @@ x <- c(1:6)
 per(y,x,0.5) # should return 3.75
 }
 
-\keyword{math}
+\keyword{nonparametric}

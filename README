@@ -1,5 +1,5 @@
 #########################################################
-Notes on building the R library CorKer:- mainly to me.
+Notes on building the R library GenKern:- mainly to me.
 
 If you have the GenKern_1.00.tar.gz file from the distribution and you have just untarred it and are wondering what to do then you need to run as root (from outside R and in a directory GenKern_1.00.tar.gz can be found):
 
@@ -83,8 +83,11 @@ R CMD INSTALL GenKern
 
 which will compile it - it's all very clever and easy.
 
+To get rid of a package do:
 
+R CMD REMOVE GenKern
 
+Note REMOVE is not the same as remove
 ######################################################
 Wish list for version 1.20
 
@@ -94,4 +97,6 @@ Wish list for version 1.20
 
 3 - Circular variables - ie wrapping of the density
 
-copyright David Lucy 30th November 2000 - d.j.lucy@bradford.ac.uk
+4 - A window parameter selection function - possibly select local window parameters as well
+
+copyright David Lucy 30th August 200a - dlucy@maths.ed.ac.uk

@@ -28,7 +28,7 @@ ybandwidth, range.x, range.y, na.rm=FALSE)}
 \item{zden}{matrix of density for \code{f(x,y)} with dimensions \code{xgridsize}, \code{ygridsize}}
 }
 
-\author{David Lucy <\email{d.j.lucy@bradford.ac.uk}>
+\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>
 \cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \references{Robertson, I. Lucy, D. Baxter, L. Pollard, A.M. Aykroyd, R.G. Carter, A.H.C. Switsur, V.R. and Waterhouse, J.S.(1999) A kernel based Bayesian approach to climatic reconstruction. \emph{Holocene} \bold{9}(4): 495-500}
@@ -84,3 +84,4 @@ box()
 
 }
 \keyword{distribution}
+\keyword{smooth}

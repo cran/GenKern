@@ -11,7 +11,7 @@
 \arguments{
 \item{x}{vector of values}
 \item{xval}{value to find the nearest value in \code{x} to}
-\item{outside=FALSE}{if not set to TRUE the function returns an error if \code{xval} is outside the range of \code{x}}
+\item{outside}{if not set to \code{TRUE} the function returns an error if \code{xval} is outside the range of \code{x} - default \code{FALSE}}
 \item{na.rm}{NA behaviour: \code{TRUE} drops cases with NA's, \code{FALSE} stops function with a warning if NA's are detected: default=\code{FALSE}}
 }
 
@@ -19,7 +19,7 @@
 \item{index}{the index of \code{x} with the value nearest to \code{xval}}
 }
 
-\author{David Lucy <\email{d.j.lucy@bradford.ac.uk}>
+\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>
 \cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \note{The vector doesn't have to be in any particular order - this routine will just give the index of the nearest number. The only inconsistancy is that if the value of \code{xval} are not strictly within the range of the vector the function will return an error. To prevent this call with the \code{outside=TRUE} flag enabled. If there are many values which match the 'nearest' value then the function will return a vector of their indicies.}
@@ -41,4 +41,4 @@ x[3] <- NA
 nearest(x, 1.7, na.rm=TRUE)
 }
 
-\keyword{manip}
+\keyword{arith}
