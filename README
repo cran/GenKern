@@ -1,0 +1,71 @@
+#########################################################
+Notes on building the R library CorKer:- mainly to me.
+
+If you have the CorKern_0.90.tar.gz file from the distribution and you have just untarred it and are wondering what to do then you need to run as root (from outside R and in a directory CorKern_0.90.tar.gz can be found):
+
+R CMD INSTALL CorKern_0.90.tar.gz
+
+which should install CorKern for you to the default R library directory - you can safely remove the directory tree you created by unpacking this tarball.
+
+looking at:
+
+R CMD INSTALL --help
+
+may also be useful.
+
+NOTE - there is a: R CMD install as well, INSTALL and install are two different things.
+
+
+
+
+
+##########################################################
+Notes to me:
+
+Building the package from the source tree
+
+need to be in the directory above the CorKern Directory then run a: 
+
+R CMD build CorKern
+
+which builds the distribution source so long as all the documentation is ok, and the R source links to any .c or .f source in one of the approved ways you should be fine.
+
+for linking R source to .c stuff I have used:
+
+.First.lib <- function(lib, pkg) library.dynam("CorKern", pkg, lib)
+
+as the line which loads the .c module and is a line I don't really understand - just copied it from another source package.
+
+then use the .C() function to make calls and pass addresses etc to the module
+
+
+
+#########################################################
+for development I used a directory with all the files just bunged in. The R source has a line:
+
+dyn.load("libCorKern.so")
+
+the file libCorKern.so being made up by:
+
+gcc -lm CorKern.c -c
+
+and to convert that to a .so from .o:
+
+R SHLIB -o libCorKern.so CorKern.o
+
+This is a conveinient way of just putting together working code by sourcing the CorKern.r file leaving the niceities of package making until after working code is established
+
+
+
+#######################################################
+Write up the documentation as described in writing R extensions by the R core team into *.Rd files
+
+from within the directory use:
+
+R CMD Rdconv -t html KernSec.Rd > KernSec.html
+
+to check the formatting on the Rd files
+
+
+
+copyright David Lucy 4th April 2000 - d.j.lucy@bradford.ac.uk

@@ -1,0 +1,6 @@
+KernSec                  Section from a generalised bi-variate binned
+                         kernel density estimate
+KernSur                  Generalised bi-variate binned kernel density
+                         estimate
+per                      Locate value for ith percentage point in a
+                         binned probability distribution

@@ -1,0 +1,18 @@
+Entry: KernSec
+Aliases: 
+Keywords: density
+Description: Computes section of bi-variate generalised binned kernel density estimate 
+URL: ../../../library/GenKern/html/KernSec.html
+
+Entry: KernSur
+Aliases: 
+Keywords: density
+Description: Compute generalised bivariate binned kernel density estimate
+URL: ../../../library/GenKern/html/KernSur.html
+
+Entry: per
+Aliases: 
+Keywords: density
+Description: Locate value for ith percentage point in a binned probability distribution
+URL: ../../../library/GenKern/html/per.html
+
