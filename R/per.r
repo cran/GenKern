@@ -42,7 +42,7 @@ if(neg.rm == TRUE){den[which(den < 0)] <- 0}
 	if(lenden == lenvals)
 		{
 		extremes <- rep(0, lenden + 1)
-		outty <- .C("getlims", as.double(vals), as.double(extremes), as.integer(lenden))
+		outty <- .C("getlims", as.double(vals), as.double(extremes), as.integer(lenden), PACKAGE="GenKern")
 		# reassign the bin extreme vector
 		extremes <- outty[[2]]
 		}

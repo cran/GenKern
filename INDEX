@@ -1,7 +1,6 @@
-GenKern.internal         GenKern internal functions
-KernSec                  Univariate kernel density estimate
-KernSur                  Bivariate kernel density estimation
-nearest                  Index of a vector nearest in value to a supplied
-                         value
-per                      Locate value for ith percentage point in a
-                         binned distribution
+KernSec                 Univariate kernel density estimate
+KernSur                 Bivariate kernel density estimation
+nearest                 Index of a vector nearest in value to a
+                        supplied value
+per                     Locate value for ith percentage point in a
+                        binned distribution

@@ -20,7 +20,7 @@
 \item{x}{value of \code{vals} corresponding to the \code{point} position}
 }
 
-\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>
+\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>\url{http://www.maths.ed.ac.uk/~dlucy/}
 \cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \note{Not restricted to uniform bin widths but due to linear interpolation gets less accurate as bin widths deviate from uniformity. The vectors must be in 

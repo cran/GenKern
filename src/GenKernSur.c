@@ -154,9 +154,11 @@ for(ctr2 = 0; ctr2 < *lenx; ctr2++)
 		}
 	}
 
-
+/* do not do this as we want the density function so we don't get
+confused when we try to use non-uniform bins
 /* make the volume equal unity */
 
+/*
 for(ctr=0; ctr<(*lenxest * *lenyest); ctr++)
 	{
 	sum += *(estimate + ctr);
@@ -166,6 +168,7 @@ for(ctr=0; ctr<(*lenxest * *lenyest); ctr++)
 	{
 	*(estimate + ctr) /= sum;
 	}
+*/
 
 return;
 }

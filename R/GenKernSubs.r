@@ -12,16 +12,12 @@
 # 3 - nothing - if true bandwidths should be set to FALSE
 bandwidthselect <- function(dat, bandwidths)
 {
+
 cases <- length(dat)
-bands <- length(bandwidths)
-
-# user supplied vector of bandwidths do nothing
-
-# user supplied single value bandwidths
-if(bands == 1){bandwidths <- rep(bandwidths, cases)}
-
 # calculate the default bandwidths
-if(bandwidths == "FALSE")
+if(any(is.na(bandwidths))){bandwidths == FALSE}
+
+if(! is.numeric(bandwidths))
 	{
 	# dummy vector to get na.omit to work set up dat2 as repeated unit
 	dat1 <- dat
@@ -32,12 +28,17 @@ if(bandwidths == "FALSE")
 	bandwidths <- rep(dpik(dat2), cases)
 	}
 
+# user supplied vector of bandwidths do nothing
+bands <- length(bandwidths)
+
+# user supplied single value bandwidths
+if(bands == 1){bandwidths <- rep(bandwidths, cases)}
+
 # trap anything unexpected
 if(length(bandwidths) != cases){stop("bandwidth vector of funny size")}
 if(any(bandwidths == "NA")){stop("bandwidth vector contains NA's")}
 return(bandwidths)
 }
-
 
 
 
@@ -54,18 +55,12 @@ return(bandwidths)
 # maximum bandwidth at each end from the data
 rangeselect <- function(dat, rnge, gridsize, bandwidth, deadspace)
 {
-lenrange <- length(rnge)
-cases <- length(dat)
-
-min.dat <- min(dat, na.rm=TRUE)
-max.dat <- max(dat, na.rm=TRUE)
-
-# in case user has sent something completely unintelligable
-if(lenrange < 2){rnge <- FALSE}
 
 # default behaviour
-if(rnge == "FALSE")
+if(rnge[1] == "FALSE")
 	{
+	max.dat <- max(dat, na.rm=TRUE)
+	min.dat <- min(dat, na.rm=TRUE)
 	# make sure that all the values are not the same
 	if((max.dat - min.dat) == 0){stop("all x's are the same - no auto range possible")}
 	maxbw <- max(bandwidth, na.rm=TRUE)
@@ -75,27 +70,27 @@ if(rnge == "FALSE")
 	ords <- seq(rnge[1], rnge[2], length=round(gridsize))
 	}
 
-# if user has sent values for the extreme limits of the range
-if(lenrange == 2){ords <- seq(rnge[1], rnge[2], length=round(gridsize))}
-# if user has specified their own ordinates
-if(lenrange > 2){ords <- rnge}
 
-# remove NA's which may have been lurking in a user supplied vector
-if(any(ords == "NA"))
+
+if(rnge[1] != "FALSE")
+{
+# if user has sent values for the extreme limits of the range
+if(length(rnge) == 2)
 	{
-	ords1 <- ords
-	ords <- na.omit(data.frame(ords, ords1))$ords
+	rnge <- sort(rnge)
+	ords <- seq(rnge[1], rnge[2], length=as.integer(gridsize))
 	}
+
+# if user has specified their own ordinates
+if(length(rnge) > 2){ords <- sort(rnge)}
+}
+
+
 # test to see whether there are any repeated ordinate values from a user vector
 if(length(unique(ords)) != length(ords)){stop("repeated values in ordinates")}
 
 return(ords)
 }
-
-
-
-
-
 
 
 
@@ -145,8 +140,9 @@ if(length(correlation) != cases){stop("wrong vector length for correlation")}
 return(correlation)
 }
 
-# getlims.r return a vector of bin limits based on a vector of bin centres
 
+
+# getlims.r return a vector of bin limits based on a vector of bin centres
 getlims <- function(centres)
 {
 # set up the vector length
@@ -162,7 +158,7 @@ if(length(unique(centres == sort(centres))) == 2){stop("bin centre values not in
 limits <- rep(0, bins+1)
 
 # calculate the bin limits
-outty <- .C("getlims", as.double(centres), as.double(limits), as.integer(bins))
+outty <- .C("getlims", as.double(centres), as.double(limits), as.integer(bins), PACKAGE="GenKern")
 
 # reassign the output
 limits <- outty[[2]]

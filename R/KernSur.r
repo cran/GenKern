@@ -102,11 +102,17 @@ out <- .C(
 	 as.double(ybandwidth), 
 	 as.double(correlation), 
 	 as.double(correlationsq),
-	 as.integer(cases)
+	 as.integer(cases),
+	 PACKAGE="GenKern"
 	 ) 
  
 # assign the return values 
 zden <- out[[1]] 
 dim(zden) <- c(ordsinx, ordsiny) 
-return(xvals, yvals, zden) 
+
+# condtruct list to return or R>1.8 complains
+op <- list(xvals, yvals, zden)
+names(op) <- c("xords", "yords", "zden")
+
+return(op) 
 }

@@ -4,7 +4,8 @@ statistical language
 
 Copyright (C) David Lucy and Robert Aykroyd see LICENCE
 
-David Lucy: d.j.lucy@bradford.ac.uk
+David Lucy: dlucy@maths.ed.ac.uk
+http://www.maths.ed.ac.uk/~dlucy/
 Robert Aykroyd: robert@amsta.leeds.ac.uk
 http://www.amsta.leeds.ac.uk/~robert/
 
@@ -27,8 +28,13 @@ Boston, MA  02111-1307  USA
 GenKernSec - outputs a uni-variate kernel density function of x. Possible to use this
 instead of bkde() or density() with the bonuses that one may use non uniformly spaced
 points and local bandwidths. Unlike the corresponding GenKernSur(), GenKernSec() executes
-rapidly enough for no discernable difference to eb noticed between it and bkde()
+rapidly enough for no discernable difference to be noticed between it and bkde()
 
+Additionally from 1st October 2004 this will return a KDE using a bandwidth for each
+ordinate for which a density is to be estimated - this procedure is a local kernel
+density estimator as in Wand & Jones (Kernel Smoothing) 1995 p 40-42. This is what is
+meant by a type II KDE. For a type II KDE the vector of bandwidths should be of the same
+length as the vector of ordinates
 
 For Linux and Solaris systems equiped with gcc
 compile with (not within R): gcc -lm CorKernSec.c -c
@@ -45,6 +51,7 @@ out <- .C(
 	 as.double(xbandwidth),
 	 as.double(est),
 	 as.integer(binsinx)
+	 as.integer(flag.type.II)
 	 )
 
 before doing so all array variables MUST be doubles from R - single integers can
@@ -64,7 +71,7 @@ control flow:
 estimate	double *estimate	*(estimate + ctr1)	p.d.f at each *xval
 binsinx		int *binsinx		*binsinx		no bins in estimate
 lenx		int *lenx		*lenx			no of cases
-
+flag.type.II	int *flag		*flag			flag indicating whether type II KDE or not
 
 temporary:
 
@@ -80,7 +87,8 @@ each point specified in *xvals
 
 math.h is required for the sqrt() and pow() functions
 
-The output doesn't sum to unity at the moment
+The output doesn't sum to unity at the moment nor should it as 
+you can have variable bin widths
 */
 
 #include <math.h>
@@ -91,7 +99,8 @@ void GenKernSec(
        double *xvals, 
        double *hx,
        double *estimate, 
-       int *lenestimate
+       int *lenestimate,
+       int *flag
        )
 {
 
@@ -99,6 +108,10 @@ int ctr=0, ctr1=0;
 float PI=3.141593, A=0.0, B=0.0;
 
 
+/* for when there is a single bandwith parameter i.e: for conventional density estimates */
+
+if(! *flag)
+{
 for(ctr = 0; ctr < *lenx; ctr++)
 	{
 
@@ -113,6 +126,31 @@ for(ctr = 0; ctr < *lenx; ctr++)
 
 		}
 	}
+
+}
+
+/* for when we have a type II KDE */
+else
+{
+
+for(ctr = 0; ctr < *lenx; ctr++)
+	{
+
+
+	for(ctr1 = 0; ctr1 < *lenestimate; ctr1++)
+		{
+		A = pow(*(hx + ctr1), 2) * 2;
+		B = 1 / (sqrt(PI * A));
+		
+		*(estimate + ctr1) += B * exp( -(pow( (*(x + ctr) - *(xvals + ctr1)),2)/A));
+
+		}
+	}
+
+}
+
+
+
 return;
 }
 

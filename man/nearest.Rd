@@ -19,7 +19,7 @@
 \item{index}{the index of \code{x} with the value nearest to \code{xval}}
 }
 
-\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>
+\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>\url{http://www.maths.ed.ac.uk/~dlucy/}
 \cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \note{The vector doesn't have to be in any particular order - this routine will just give the index of the nearest number. The only inconsistancy is that if the value of \code{xval} are not strictly within the range of the vector the function will return an error. To prevent this call with the \code{outside=TRUE} flag enabled. If there are many values which match the 'nearest' value then the function will return a vector of their indicies.}
