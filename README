@@ -1,11 +1,11 @@
 #########################################################
 Notes on building the R library CorKer:- mainly to me.
 
-If you have the CorKern_0.90.tar.gz file from the distribution and you have just untarred it and are wondering what to do then you need to run as root (from outside R and in a directory CorKern_0.90.tar.gz can be found):
+If you have the GenKern_1.00.tar.gz file from the distribution and you have just untarred it and are wondering what to do then you need to run as root (from outside R and in a directory GenKern_1.00.tar.gz can be found):
 
-R CMD INSTALL CorKern_0.90.tar.gz
+R CMD INSTALL GenKern_1.00.tar.gz
 
-which should install CorKern for you to the default R library directory - you can safely remove the directory tree you created by unpacking this tarball.
+which should install GenKern for you to the default R library directory - you can safely remove the directory tree you created by unpacking this tarball.
 
 looking at:
 
@@ -24,15 +24,15 @@ Notes to me:
 
 Building the package from the source tree
 
-need to be in the directory above the CorKern Directory then run a: 
+need to be in the directory above the GenKern Directory then run a: 
 
-R CMD build CorKern
+R CMD build GenKern
 
 which builds the distribution source so long as all the documentation is ok, and the R source links to any .c or .f source in one of the approved ways you should be fine.
 
 for linking R source to .c stuff I have used:
 
-.First.lib <- function(lib, pkg) library.dynam("CorKern", pkg, lib)
+.First.lib <- function(lib, pkg) library.dynam("GenKern", pkg, lib)
 
 as the line which loads the .c module and is a line I don't really understand - just copied it from another source package.
 
@@ -43,17 +43,17 @@ then use the .C() function to make calls and pass addresses etc to the module
 #########################################################
 for development I used a directory with all the files just bunged in. The R source has a line:
 
-dyn.load("libCorKern.so")
+dyn.load("libGenKern.so")
 
-the file libCorKern.so being made up by:
+the file libGenKern.so being made up by:
 
-gcc -lm CorKern.c -c
+gcc -lm GenKern.c -c
 
 and to convert that to a .so from .o:
 
-R SHLIB -o libCorKern.so CorKern.o
+R SHLIB -o libGenKern.so GenKern.o
 
-This is a conveinient way of just putting together working code by sourcing the CorKern.r file leaving the niceities of package making until after working code is established
+This is a conveinient way of just putting together working code by sourcing the GenKern.r file leaving the niceities of package making until after working code is established
 
 
 
@@ -68,4 +68,30 @@ to check the formatting on the Rd files
 
 
 
-copyright David Lucy 4th April 2000 - d.j.lucy@bradford.ac.uk
+#######################################################
+As root from the directory above the source tree do a
+
+R CMD build GenKern
+
+This will return some warnings from v1.00 on as there are several 'hidden' functions - these warnings can safely be ignored
+
+Which will build the package into GenKern_X.XX.tar.gz
+
+Then from the directory with the .tar.gz in as root install by
+
+R CMD INSTALL GenKern
+
+which will compile it - it's all very clever and easy.
+
+
+
+######################################################
+Wish list for version 1.20
+
+1 - More kernel forms - possibly even a beta despite Robert not being too keen on them
+
+2 - A trivariate function - trivariates can be simulated for two continuous and a discrete - I'd like to do a proper three continuous and above dimensions
+
+3 - Circular variables - ie wrapping of the density
+
+copyright David Lucy 30th November 2000 - d.j.lucy@bradford.ac.uk

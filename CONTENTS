@@ -1,18 +1,23 @@
 Entry: KernSec
 Aliases: 
-Keywords: density
-Description: Computes section of bi-variate generalised binned kernel density estimate 
+Keywords: distribution
+Description: Computes univariate kernel density estimate using Gaussian kernels 
 URL: ../../../library/GenKern/html/KernSec.html
 
 Entry: KernSur
 Aliases: 
-Keywords: density
-Description: Compute generalised bivariate binned kernel density estimate
+Keywords: distribution
+Description: Compute bivariate kernel density estimate using five parameter Gaussian kernels
 URL: ../../../library/GenKern/html/KernSur.html
+
+Entry: nearest
+Aliases: 
+Keywords: manip
+Description: Returns the index of a vector which contains the value closest to an arbitary value
+URL: ../../../library/GenKern/html/getlims.html
 
 Entry: per
 Aliases: 
-Keywords: density
+Keywords: math
 Description: Locate value for ith percentage point in a binned probability distribution
 URL: ../../../library/GenKern/html/per.html
-

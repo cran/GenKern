@@ -1,6 +1,7 @@
-KernSec                  Section from a generalised bi-variate binned
-                         kernel density estimate
-KernSur                  Generalised bi-variate binned kernel density
-                         estimate
+KernSec                  Univariate kernel density estimate
+KernSur                  Bivariate kernel density estimation
+nearest                  Index of a vector nearest in value to a supplied
+                         value
 per                      Locate value for ith percentage point in a
-                         binned probability distribution
+                         binned distribution
+GenKern.internal         GenKern internal functions

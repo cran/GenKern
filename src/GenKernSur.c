@@ -1,5 +1,5 @@
 /*
-CorKernSur.c - part of David Lucy and Robert Aykroyd's CorKern package for the R
+GenKernSur.c - part of David Lucy and Robert Aykroyd's GenKern package for the R
 statistical language
 
 Copyright (C) David Lucy and Robert Aykroyd see LICENCE
@@ -23,19 +23,22 @@ Boston, MA  02111-1307  USA
 */
 
 /*
-CorKernSur - forth attempt to produce a reasonable correlated kernel routine
+GenKernSur - fifth attempt to produce a reasonable correlated kernel routine
 this one gets passed the values for x and y then calculates the z values from
 the bi-variate density function rather than messing about with producing
 kernels which are passed to the function
 
-CorKernSur calculates the joint probability density function P(x,y) for all
+GebKernSur calculates the joint probability density function P(x,y) for all
 values of x and y within the specified x and y ranges - use for visual examination
 of these pdfs rather than any specific calculation - a useful test of the routine is to
 sink the correlation to zero then compare the binned values to bkde2D() values from 
 the KernSmooth() package - if ALL the passed parameters are the same this routine gives
 very nearly the same values in each bin (any difference is of an order of magnetude
 where it can be attributed to rounding errors). Don't use unless correlated kernels
-are required as bkde2D is much quicker.
+are required as bkde2D is much quicker. The advantage with this version is that there are
+no restrictions about equal sized bins, you can define bin centres anywhere. No restrictions
+on variable window widths in either dmension - you can even send the directions of the 
+kernels as a variable.
 
 
 invoke from R or S with:
@@ -51,24 +54,26 @@ out <- .C(
 	 as.double(xbandwidth), 
 	 as.double(ybandwidth), 
 	 as.double(correlation), 
+	 as.double(correlationsq),
 	 as.integer(length(x))
 	 ) 
  
 before doing so all array variables MUST be doubles from R - single integers can
-be passed as int - also a dyn.load("libKerAdd.so") never goes amiss.
+be passed as int - also a dyn.load("GenKerSur.so") never goes amiss.
 
 
 variable list and corresponding useage:
 
 in the joint p.d.f equation:
-mux	double *x	*(x+ctr)	vector of raw x scores
+mux	double *x	*(x + ctr)	vector of raw x scores
 x	double *x	*(x + ctr2)	vector of raw x scores
 y	double *y	*(y + ctr2)	vector of raw y scores
 xvals	double *xvals	*(xvals + ctr1)	vector of x values corresponding to the x bins
 yvals	double *yvals	*(yvals + ctr)  vector of x values corresponding to the x bins
-rho	double *rho	*rho		x-y correlation coefficient
-hx	double *hx	*hx		xbandwidth
-hy	double *hy	*hy		ybandwidth
+rho	double *rho	*(rho + ctr2)	vector of x-y correlation coefficients
+rhosq	double *rhosq	*(rhosq + ctr2)	vector of squared x-y correlation coefficients
+hx	double *hx	*(hx + ctr2)	vector of xbandwidths
+hy	double *hy	*(hy + ctr2)	vector of ybandwidths
 
 control flow:
 estimate	double *estimate	*(estimate + ctr1)	p.d.f at y = yvalue
@@ -96,12 +101,13 @@ each to a variable - there are some repeated units so was also used for optimisa
 
 math.h is required for the sqrt() and pow() functions
 
-The results from here are standardised so the volume is unity
+The results from here are standardised so the volume is unity if you don't want that
+then you'll have to multiply the output by some factor external to this function
 */
 
 #include<math.h>
 
-CorKernSur(
+void GenKernSur(
           double *estimate,
 	  int *lenxest,
 	  int *lenyest,
@@ -112,15 +118,15 @@ CorKernSur(
 	  double *hx,
 	  double *hy,
 	  double *rho,
+	  double *rhosq,
 	  int *lenx
 	  )
 {
 
 int ctr=0, ctr1=0, ctr2=0;
-float rhosq=0.0, PI=3.141593, A=0.0, B=0.0, sum=0.0;
+float PI=3.141593, A=0.0, B=0.0, sum=0.0;
 
-rhosq = pow(*rho,2); 
-
+ 
 /* ctr2 for all pairs in x and y */
 for(ctr2 = 0; ctr2 < *lenx; ctr2++)
 	{
@@ -131,17 +137,17 @@ for(ctr2 = 0; ctr2 < *lenx; ctr2++)
 		/* ctr1 for all values of x */
 		for(ctr1=0; ctr1 < *lenxest; ctr1++)
 			{
-			A = ( *(xvals + ctr1) - *(x + ctr2) ) / *hx; 
-			B = ( *(yvals + ctr) - *(y + ctr2)) / *hy; 
+			A = ( *(xvals + ctr1) - *(x + ctr2) ) / *(hx + ctr2); 
+			B = ( *(yvals + ctr) - *(y + ctr2)) / *(hy + ctr2); 
 
 			/* calculate the value in the bin */
-			*(estimate + ((ctr * *lenxest) + ctr1)) += 1 / (*hy * *hx * (sqrt(2 * PI * (1 - rhosq)))) 
+			*(estimate + ((ctr * *lenxest) + ctr1)) += 1 / (*(hy + ctr2)* *(hx + ctr2) * (sqrt(2 * PI * (1 - *(rhosq + ctr2))))) 
 				      	* 
 				       	exp 
 				       	(  				        
-				       	(-1 / (2 * (1 - rhosq)))  
+				       	(-1 / (2 * (1 - *(rhosq + ctr2))))  
 				       	* 
-				       	(pow(A, 2) - 2 * *rho * A * B + pow(B, 2))
+				       	(pow(A, 2) - 2 * *(rho + ctr2) * A * B + pow(B, 2))
 
 					) ;
 			}

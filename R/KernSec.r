@@ -1,78 +1,72 @@
 KernSec <- function(
-		 x,
-		 y,
-		 yvalue,
-		 gridsize=100,
-		 correlation,
-		 xbandwidth,
-		 ybandwidth,
-		 range.x
-		 )
+		    x,
+		    xgridsize=100,
+		    xbandwidth,
+		    range.x,
+		    na.rm=FALSE
+		   )
 {
-
 # multiplier for the xbandwidth which gives the tails at either end for the
 # final correlated kernel density estimate only operates as default
 deadspace <- 1.5       
+cases <- length(x)
+
+# flags to increase efficiency in parameter selection
+flag1 <- 1
+flag2 <- 1
+
+# xbandwidth selection
+	# default bandwidth
+        if(missing(xbandwidth))
+                {
+		flag1 <- 0
+		xbandwidth <- bandwidthselect(x, bandwidths=FALSE)
+		} 
+	# user supplied bandwidth 
+	if(flag1){xbandwidth <- bandwidthselect(x, xbandwidth)}
 
 
-# set up the default values for a few required variables
+# Do the NA handling
+# put it all together into a data frame or na.omit doesn't work
+z <- data.frame(x, xbandwidth)
+	# if NAs not allowed fail the function
+	if(na.rm == FALSE){na.fail(z)}
+	# get rid of NA cases
+	if(na.rm == TRUE){z <- na.omit(z)}
+# reassign the vectors with NAs removed
+x <- z$x; xbandwidth <- z$xbandwidth
 
-        if(missing(correlation))                                                                                if(missing(correlation))
-                {correlation <- cor(x,y)}
 
-	if(missing(xbandwidth))                                                                                        if(missing(xbandwidth))
-                {xbandwidth <- dpik(x)}
-
-        if(missing(ybandwidth))
-                {ybandwidth <- dpik(y)}
-
+# range selection
+	# default range of xvalues
         if(missing(range.x))
-                {range.x <- c( (min(x) - (deadspace * xbandwidth)),(max(x) + (deadspace * xbandwidth)) )}
-            
-# if not default extract the range
-min.x <- range.x[1]
-max.x <- range.x[2]
+                {
+		flag2 <- 0
+		xvals <- rangeselect(x, rnge=FALSE, xgridsize, xbandwidth, deadspace)
+		} 
+	# user supplied ranges
+	if(flag2){xvals <- rangeselect(x, range.x, xgridsize, xbandwidth, deadspace)}
 
 
-binsinx <- round(gridsize)
-xperbin <- (max.x - min.x)/binsinx
-
-# define the 
-corker <- rep(0, binsinx)
-
-
-# generate a vector of x values which identify the x value of each bin in corker
-# where we're bound to get picked up is what bit of the bin the value refers to
-# the minx is the left of bin 1 - maxx is the right of the final bin - therefore
-# we have some vernier type scaling of the central values for each bin and need
-# to adjust each accordingly
-xvals <- seq(min.x, max.x, length=binsinx)
-mangle <- seq(0.5 , -0.5 , length=binsinx)
-xvals <- xvals + (xperbin * mangle)
+# generate a vector of length xords with zeros in it to contain
+# the density estimate
+xordslen <- length(xvals)
+est <- rep(0, xordslen)
 
 
 # invoke the .c module
 out <- .C(
-	 "CorKernSec",
-	 as.double(corker),
-	 as.integer(binsinx),
+	 "GenKernSec",
 	 as.double(x),
-	 as.double(xvals),
 	 as.integer(length(x)),
-	 as.double(y),
-	 as.double(yvalue),
+	 as.double(xvals),
 	 as.double(xbandwidth),
-	 as.double(ybandwidth),
-	 as.double(correlation)
+	 as.double(est),
+	 as.integer(xordslen)
 	 )
 
 # assign the return values
-yden <- out[[1]]
-
-
-#print(xbandwidth)
-#print(ybandwidth)
-
+yden <- out[[5]]
 
 return(xvals, yden)
 }
