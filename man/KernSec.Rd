@@ -20,8 +20,8 @@
 \item{yden}{vector of density estimates corresponding to each \code{x} ordinate}
 }
 
-\author{David Lucy <\email{dlucy@maths.ed.ac.uk}> \url{http://www.maths.ed.ac.uk/~dlucy/}
-\cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
+\author{David Lucy <\email{d.lucy@lancaster.ac.uk}> \url{http://www.maths.lancs.ac.uk/~lucy/}
+\cr Robert Aykroyd <\email{r.g.aykroyd@leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \references{Lucy, D. Aykroyd, R.G. & Pollard, A.M.(2002) Non-parametric calibration for age estimation . \emph{Applied Statistics} \bold{51}(2): 183-196}
 
@@ -29,7 +29,7 @@
 
 This function doesn't use bins as such, it calculates the density at a set of points. These points can be thought of as 'bin centres' but in reality they're not.
 
-New for version 1.10 local kernel density estimates can now be sent, so that a vector of bandwidths can be send which is the same length as that of the observations. This will give a density which is has a unique bandwidth for each observation. Or a vector of bandwidths can be sent which is the same length as that of the number of bins. This will give a unique bandwidth for each ordinate, and is described in Wand & Jones (1995) \emph{Kernal Smoothing}. It is for the user to supply this vector of bandwidths, possibly with some form of \emph{pilot estimation}.
+For version 1.10 on local kernel density estimates can now be sent, so that a vector of bandwidths can be send which is the same length as that of the observations. This will give a density which is has a unique bandwidth for each observation. Or a vector of bandwidths can be sent which is the same length as that of the number of bins. This will give a unique bandwidth for each ordinate, and is described in Wand & Jones (1995) \emph{Kernal Smoothing}. It is for the user to supply this vector of bandwidths, possibly with some form of \emph{pilot estimation}.
 
 It should be noted that multi-element vectors which approximate the bin centres, can be sent rather than the extreme limits of the range; which means that the points at which the density is to be calculated need not be uniformly spaced.
 
@@ -45,7 +45,7 @@ Finally, the various modes of sending parameters can be mixed, ie: the extremes 
 
 \seealso{\code{\link{KernSur}} \code{\link{per}}  \code{\link[base]{density}} \code{\link[base]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
 
-\section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{a.m.pollard@bradford.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
+\section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{mark.pollard@rlaha.ox.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
 
 \examples{
 x <- c(2,4,6,8,10) 

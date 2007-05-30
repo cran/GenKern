@@ -20,8 +20,8 @@
 \item{x}{value of \code{vals} corresponding to the \code{point} position}
 }
 
-\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>\url{http://www.maths.ed.ac.uk/~dlucy/}
-\cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
+\author{David Lucy <\email{d.lucy@lancaster.ac.uk}> \url{http://www.maths.lancs.ac.uk/~lucy/}
+\cr Robert Aykroyd <\email{r.g.aykroyd@leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \note{Not restricted to uniform bin widths but due to linear interpolation gets less accurate as bin widths deviate from uniformity. The vectors must be in 
 ascending order of bin centres bin break points. The density can be a frequency in that it doesn't have to sum to unity.
@@ -30,7 +30,7 @@ Out of character for the rest of the GenKern package this function does assume p
 
 \seealso{\code{\link{KernSur}} \code{\link{per}}  \code{\link[base]{density}} \code{\link[base]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
 
-\section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{a.m.pollard@bradford.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
+\section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{mark.pollard@rlaha.ox.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
 
 \examples{
 # make up some x-y data

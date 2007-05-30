@@ -28,8 +28,8 @@ ybandwidth, range.x, range.y, na.rm=FALSE)}
 \item{zden}{matrix of density for \code{f(x,y)} with dimensions \code{xgridsize}, \code{ygridsize}}
 }
 
-\author{David Lucy <\email{dlucy@maths.ed.ac.uk}>\url{http://www.maths.ed.ac.uk/~dlucy/}
-\cr Robert Aykroyd <\email{robert@amsta.leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
+\author{David Lucy <\email{d.lucy@lancaster.ac.uk}> \url{http://www.maths.lancs.ac.uk/~lucy/}
+\cr Robert Aykroyd <\email{r.g.aykroyd@leeds.ac.uk}>\url{http://www.amsta.leeds.ac.uk/~robert/}}
 
 \references{Lucy, D. Aykroyd, R.G. & Pollard, A.M.(2002) Non-parametric calibration for age estimation. \emph{Applied Statistics} \bold{51}(2): 183-196}
 
@@ -53,7 +53,7 @@ Version 1.1-0 has a bugfix in that it now outputs the magnetude of the density f
 
 \seealso{\code{\link{KernSec}} \code{\link{per}}  \code{\link[base]{density}} \code{\link[base]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
 
-\section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{a.m.pollard@bradford.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
+\section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{mark.pollard@rlaha.ox.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
 
 \examples{
 x <- c(2,4,6,8,10)                         # make up some x-y data
