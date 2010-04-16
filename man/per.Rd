@@ -28,7 +28,7 @@ ascending order of bin centres bin break points. The density can be a frequency 
 
 Out of character for the rest of the GenKern package this function does assume proper bins rather than ordinates, although if a density estimate has been generated using \code{\link{KernSec}} then the ordinate vector can be used as a first order approximation to bin centres.}
 
-\seealso{\code{\link{KernSur}} \code{\link{per}}  \code{\link[base]{density}} \code{\link[base]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
+\seealso{\code{\link{KernSur}} \code{\link{per}}  \code{\link[stats]{density}} \code{\link[graphics]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
 
 \section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{mark.pollard@rlaha.ox.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
 

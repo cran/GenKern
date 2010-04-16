@@ -1,9 +1,9 @@
 # message so users don't get worried by the KernSmooth message when
 # loading GenKern
 
-cat("\nLoading GenKern version 1.1\n")
+cat("\nLoading GenKern version 1.1-2\n")
 cat("Copyright Lucy and Aykroyd 2000\n")
-cat("last update October 2004\n")
+cat("last update May 2007\n")
 cat("requires KernSmooth\n\n")
 
 # required packages -  Wand and Jones' KernSmooth package mainly for 

@@ -21,7 +21,7 @@ ybandwidth, range.x, range.y, na.rm=FALSE)}
 \item{range.y}{total range of the estimate in the \code{y} dimension, or a vector giving the \code{y} ordinates: default=\code{range +- 1.5 * mean bandwidth}}
 \item{na.rm}{NA behaviour: \code{TRUE} drops cases with NA's, \code{FALSE} stops function with a warning if NA's are detected: default=\code{FALSE}}
 }
-}
+
 \value{returns two vectors and a matrix:
 \item{xords}{vector of ordinates at which the density has been estimated in the \code{x} dimension}
 \item{yords}{vector of ordinates at which the density has been estimated in the \code{y} dimension}
@@ -51,7 +51,7 @@ Finally, the various modes of sending parameters can be mixed, ie: the extremes 
 
 Version 1.1-0 has a bugfix in that it now outputs the magnetude of the density function at the specified bi-variate points, not an approximation to the volumes.}
 
-\seealso{\code{\link{KernSec}} \code{\link{per}}  \code{\link[base]{density}} \code{\link[base]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
+\seealso{\code{\link{KernSec}} \code{\link{per}}  \code{\link[stats]{density}} \code{\link[graphics]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
 
 \section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{mark.pollard@rlaha.ox.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
 

@@ -11,7 +11,7 @@
 \arguments{
 \item{x}{vector of \code{x} values}
 \item{xgridsize}{integer for number of ordinates at which to calculate the smoothed estimate: default=100}
-\item{xbandwidth}{value of \code{x} window width, or vector of local window widths, one for each \code{x}, or one for each \code{range.x, or a vector of length \code{xgridsize}}: default=\code{dpik(x)}}
+\item{xbandwidth}{value of \code{x} window width, or vector of local window widths, one for each \code{x}, or one for each \code{range.x}, or a vector of length \code{xgridsize}: default=\code{dpik(x)}}
 \item{range.x}{total range of the estimate in the \code{x} dimension, or a vector giving the \code{x} ordinates: default=\code{range +- 1.5 * mean bandwidth}}
 }
 
@@ -43,7 +43,7 @@ Finally, the various modes of sending parameters can be mixed, ie: the extremes 
 }
 
 
-\seealso{\code{\link{KernSur}} \code{\link{per}}  \code{\link[base]{density}} \code{\link[base]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
+\seealso{\code{\link{KernSur}} \code{\link{per}}  \code{\link[stats]{density}} \code{\link[graphics]{hist}} \code{\link[KernSmooth]{bkde}} \code{\link[KernSmooth]{bkde2D}} \code{\link[KernSmooth]{dpik}}}
 
 \section{Acknowledgements}{Written in collaboration with A.M.Pollard <\email{mark.pollard@rlaha.ox.ac.uk}> with the financial support of the Natural Environment Research Council (NERC) grant GR3/11395}
 
